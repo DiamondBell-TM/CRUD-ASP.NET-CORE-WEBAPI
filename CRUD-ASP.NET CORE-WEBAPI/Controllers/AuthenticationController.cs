@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CRUD_ASP.NET_CORE_WEBAPI.Helpers;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Cors;
 
 namespace CRUD_ASP.NET_CORE_WEBAPI.Controllers
 {
+    [EnableCors("CORSAPI")]
     public class AuthenticationController : BaseController
     {
         private readonly AppDbContext _dbcontext;
@@ -23,7 +25,7 @@ namespace CRUD_ASP.NET_CORE_WEBAPI.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
         {
             if (model.Email != null)
             {
@@ -56,7 +58,7 @@ namespace CRUD_ASP.NET_CORE_WEBAPI.Controllers
 
         [HttpPost("Login")]
 
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
             if (!string.IsNullOrEmpty(model.Email))
             {
